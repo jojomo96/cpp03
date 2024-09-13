@@ -58,3 +58,7 @@ void FragTrap::attack(const std::string &target) {
 void FragTrap::highFiveGuys() {
 	std::cout << "FragTrap " << get_name() << " says: High five, guys!\n";
 }
+
+FragTrap::FragTrap() : ClapTrap("Default") {
+	std::cout << "FragTrap created.\n";
+}

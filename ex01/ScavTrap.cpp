@@ -57,3 +57,7 @@ void ScavTrap::attack(const std::string &target) {
 void ScavTrap::guardGate() {
 	std::cout << "ScavTrap " << get_name() << " is now in Gate keeper mode.\n";
 }
+
+ScavTrap::ScavTrap(): ClapTrap("Default") {
+	std::cout << "ScavTrap created.\n";
+}

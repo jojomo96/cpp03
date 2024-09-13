@@ -25,4 +25,6 @@ public:
 	// Member functions
 	void attack(const std::string &target) override;
 	void highFiveGuys();
+private:
+	FragTrap();
 };
