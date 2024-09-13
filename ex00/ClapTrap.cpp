@@ -1,6 +1,6 @@
 #include "ClapTrap.hpp"
-
 #include <iostream>
+#include <limits>
 
 // Constructor
 ClapTrap::ClapTrap(std::string name) : _name(std::move(name)) {
@@ -57,34 +57,31 @@ ClapTrap &ClapTrap::operator=(ClapTrap &&other) noexcept {
 	return *this;
 }
 
-bool ClapTrap::check_hitpoints() const {
+bool ClapTrap::is_dead() const {
 	if (_hitpoints == 0) {
-		std::cout << "ClapTrap " << _name << " is dead and cannot attack." << std::endl;
+		std::cout << "ClapTrap " << _name << " is dead and cannot perform actions." << std::endl;
 		return true;
 	}
 	return false;
 }
 
-bool ClapTrap::check_energy_points() const {
+bool ClapTrap::is_out_of_energy() const {
 	if (_energyPoints == 0) {
-		std::cout << "ClapTrap " << _name << " is out of energy and cannot attack." << std::endl;
+		std::cout << "ClapTrap " << _name << " is out of energy and cannot perform actions." << std::endl;
 		return true;
 	}
 	return false;
 }
 
-void ClapTrap::attack(std::string const &target) {
-	if (check_hitpoints()) return;
+void ClapTrap::attack(const std::string &target) {
+	if (is_dead() || is_out_of_energy()) return;
 
-	if (check_energy_points()) return;
-
-	this->_energyPoints -= 1;
-
+	_energyPoints -= 1;
 	std::cout << "ClapTrap " << _name << " attacks " << target << ", causing " << _attackDamage << " points of damage!"
 			<< std::endl;
 }
 
-void ClapTrap::takeDamage(const unsigned int amount) {
+void ClapTrap::takeDamage(unsigned int amount) {
 	if (amount >= _hitpoints) {
 		_hitpoints = 0;
 		std::cout << "ClapTrap " << _name << " takes " << amount << " points of damage and is now destroyed." <<
@@ -96,8 +93,8 @@ void ClapTrap::takeDamage(const unsigned int amount) {
 	}
 }
 
-void ClapTrap::beRepaired(const unsigned int amount) {
-	if (check_energy_points()) return;
+void ClapTrap::beRepaired(unsigned int amount) {
+	if (is_out_of_energy()) return;
 
 	if (_hitpoints + amount < _hitpoints) {
 		// Check for overflow
@@ -109,6 +106,11 @@ void ClapTrap::beRepaired(const unsigned int amount) {
 		std::cout << "ClapTrap " << _name << " is repaired by " << amount << " points, new hit points: " << _hitpoints
 				<< "." << std::endl;
 	}
+}
+
+void ClapTrap::printStatus() const {
+	std::cout << "ClapTrap " << _name << " Status: " << "Hitpoints: " << _hitpoints << ", Energy Points: " <<
+			_energyPoints << ", Attack Damage: " << _attackDamage << std::endl;
 }
 
 std::string ClapTrap::get_name() const {
