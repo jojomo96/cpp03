@@ -1,6 +1,11 @@
 #include "ClapTrap.hpp"
+
 #include <iostream>
 #include <limits>
+
+ClapTrap::ClapTrap() : _name("Default") {
+	std::cout << "ClapTrap " << _name << " created." << std::endl;
+}
 
 // Constructor
 ClapTrap::ClapTrap(std::string name) : _name(std::move(name)) {

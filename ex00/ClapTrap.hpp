@@ -42,6 +42,7 @@ public:
 	void set_attack_damage(unsigned int attack_damage);
 
 private:
+	ClapTrap();
 	std::string _name;
 	unsigned int _hitpoints = 10;
 	unsigned int _energyPoints = 10;
