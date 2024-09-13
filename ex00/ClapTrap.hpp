@@ -4,7 +4,7 @@
 class ClapTrap {
 public:
 	// Constructor
-	explicit ClapTrap(const std::string &name);
+	explicit ClapTrap(std::string name);
 
 	// Destructor
 	~ClapTrap();
